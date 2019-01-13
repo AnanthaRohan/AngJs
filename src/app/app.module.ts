@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 
 
 import { DishService } from './services/dish.service';
+import { PromotionService } from './services/promotion.service';
 
 
 
@@ -46,7 +47,7 @@ import { DishService } from './services/dish.service';
     MatButtonModule,
     AppRoutingModule
   ],
-  providers: [DishService],
+  providers: [DishService,PromotionService],
 
   bootstrap: [AppComponent]
 })
