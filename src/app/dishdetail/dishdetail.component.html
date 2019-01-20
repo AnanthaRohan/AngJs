@@ -7,7 +7,7 @@
     fxLayoutGap.xs="0">
 
   <div fxFlex="40">
-    <div fxFlex *ngIf="dish">
+    <div  *ngIf="dish">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
@@ -32,16 +32,17 @@
     <div [hidden]="dish">
         <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
       </div>
+    
   </div>
 
   
     <div fxFlex="40">
-      <div fxFlex *ngIf="dish">
+      <div *ngIf="dish">
         
                 
-                <mat-list fxFlex >
+                <mat-list>
                     <h3>Comments</h3>
-                    <mat-list-item>
+                    <mat-list-item  >
                       <h1 matLine></h1>
                       <p matLine>
                         <span> {{dish.comments[0].comment}}</span>
@@ -50,7 +51,7 @@
                         <span>-- {{dish.comments[0].author}} {{dish.comments[0].date| date}}</span>
                       </p>
                    </mat-list-item>
-                   <mat-list-item>
+                  <mat-list-item>
                       <h1 matLine></h1>
                       <p matLine>
                         <span> {{dish.comments[1].comment}}</span>
@@ -88,9 +89,37 @@
                    </mat-list-item>
                   </mat-list>
               
-          
+                  <div>
+                    
+                      <p>{{ reviewForm.value | json }} {{ reviewForm.status | json }}</p>
+                  
+                      <form novalidate [formGroup]="reviewForm" #rform="ngForm" (ngSubmit)="onSubmit()">
+                        <p>
+                            <mat-form-field >
+                                <input matInput formControlName="name" placeholder="Name" type="text" required>
+                                <mat-error *ngIf="formErrors.firstname">{{formErrors.name}}</mat-error>
+                                 </mat-form-field>
+                            </p>
+                            <mat-slider min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
+                            
+                            <p>
+                              <mat-form-field >
+                                <input matInput formControlName="comment" placeholder="Comments" type="text" required>
+                                <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
+                              </mat-form-field>
+                            </p>
+                        
+                        
+                        
+                        <button type="submit" mat-button class="background-primary text-floral-white" >Submit</button>
+                      </form>
+                    </div>
+                 
         </div>
-  
+       
 </div>
+
+</div>
+
 
 
