@@ -37,57 +37,27 @@
 
   
     <div fxFlex="40">
-      <div *ngIf="dish">
+
+    <div *ngIf="dish">
+      
         
                 
                 <mat-list>
                     <h3>Comments</h3>
-                    <mat-list-item  >
+                    <mat-list-item *ngFor="let comment of dish.comments" >
                       <h1 matLine></h1>
                       <p matLine>
-                        <span> {{dish.comments[0].comment}}</span>
+                        <span> {{comment.comment}}</span>
                         <br>
-                        <span>{{dish.comments[0].rating}} Stars</span><br>
-                        <span>-- {{dish.comments[0].author}} {{dish.comments[0].date| date}}</span>
+                        <span>{{comment.rating}} Stars</span><br>
+                        <span>--{{comment.author}} {{comment.date| date}}</span>
                       </p>
                    </mat-list-item>
-                  <mat-list-item>
-                      <h1 matLine></h1>
-                      <p matLine>
-                        <span> {{dish.comments[1].comment}}</span>
-                        <br>
-                        <span>{{dish.comments[1].rating}} Stars</span><br>
-                        <span>-- {{dish.comments[1].author}} {{dish.comments[1].date| date}}</span>
-                      </p>
-                   </mat-list-item>
-                   <mat-list-item>
-                      <h1 matLine></h1>
-                      <p matLine>
-                        <span> {{dish.comments[2].comment}}</span>
-                        <br>
-                        <span>{{dish.comments[2].rating}} Stars</span><br>
-                        <span>-- {{dish.comments[2].author}} {{dish.comments[2].date| date}}</span>
-                      </p>
-                   </mat-list-item>
-                   <mat-list-item>
-                      <h1 matLine></h1>
-                      <p matLine>
-                        <span> {{dish.comments[3].comment}}</span>
-                        <br>
-                        <span>{{dish.comments[3].rating}} Stars</span><br>
-                        <span>-- {{dish.comments[3].author}} {{dish.comments[3].date| date}}</span>
-                      </p>
-                   </mat-list-item>
-                   <mat-list-item>
-                      <h1 matLine></h1>
-                      <p matLine>
-                        <span> {{dish.comments[4].comment}}</span>
-                        <br>
-                        <span>{{dish.comments[4].rating}} Stars</span><br>
-                        <span>-- {{dish.comments[4].author}} {{dish.comments[4].date| date}}</span>
-                      </p>
-                   </mat-list-item>
+                  
                   </mat-list>
+
+                  
+                
               
                   <div>
                     
@@ -96,8 +66,8 @@
                       <form novalidate [formGroup]="reviewForm" #rform="ngForm" (ngSubmit)="onSubmit()">
                         <p>
                             <mat-form-field >
-                                <input matInput formControlName="name" placeholder="Name" type="text" required>
-                                <mat-error *ngIf="formErrors.firstname">{{formErrors.name}}</mat-error>
+                                <input matInput formControlName="author" placeholder="Name" type="text" required>
+                                <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                                  </mat-form-field>
                             </p>
                             <mat-slider min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>

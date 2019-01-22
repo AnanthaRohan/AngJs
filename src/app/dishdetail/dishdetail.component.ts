@@ -21,19 +21,20 @@ export class DishdetailComponent implements OnInit {
     dishIds: string[];
     prev: string;
     next: string;
-    reviewForm: FormGroup;
-    review: Review;
-    xomment: Comment;
-    
     @ViewChild('rform') reviewFormDirective;
 
+    reviewForm: FormGroup;
+    review: Review;
+    comment: Comment;
+    
+    
     formErrors = {
-      'name': '',
+      'author': '',
       'comment': ''
      };
 
      validationMessages = {
-      'name': {
+      'author': {
         'required':      'Name is required.',
         'minlength':     'Name must be at least 2 characters long.',
         'maxlength':     'Name cannot be more than 25 characters long.'
@@ -51,19 +52,21 @@ export class DishdetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder) { 
-      this.createForm();
+     
     }
     
 
   ngOnInit() {
-    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+    this.createForm();
+    this.dishservice.getDishIds()
+    .subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
     .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
   }
 
   createForm() {
     this.reviewForm = this.fb.group({
-      name: ['', Validators.required ],
+      author: ['', Validators.required ],
       comment : ''
     });
     this.reviewForm.valueChanges
@@ -96,11 +99,10 @@ this.onValueChanged(); // (re)set validation messages now
     this.review = this.reviewForm.value;
     console.log(this.review);
     this.reviewForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
+      author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
       comment: ['', [Validators.required, Validators.minLength(2)] ],
      });
-    this.review.name=this.xomment.author;
-    this.review.comment=this.xomment.comment;
+    
     this.reviewFormDirective.resetForm();
   }
   
@@ -116,3 +118,4 @@ this.onValueChanged(); // (re)set validation messages now
 
 }
 }
+
