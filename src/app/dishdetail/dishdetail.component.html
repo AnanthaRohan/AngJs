@@ -36,9 +36,9 @@
   </div>
 
   
-    <div fxFlex="40">
+    <div fxFlex="40"  *ngIf="dish">
 
-    <div *ngIf="dish">
+    
       
         
                 
@@ -53,24 +53,30 @@
                         <span>--{{comment.author}} {{comment.date| date}}</span>
                       </p>
                    </mat-list-item>
+                   
                   
                   </mat-list>
 
                   
                 
-              
-                  <div>
-                    
-                      <p>{{ reviewForm.value | json }} {{ reviewForm.status | json }}</p>
+              <div>
                   
-                      <form novalidate [formGroup]="reviewForm" #rform="ngForm" (ngSubmit)="onSubmit()">
+                     <p>
+                        <span> {{commentForm.value.comment}}</span>
+                        <br>
+                        <span>{{commentForm.value.rating}}</span><br>
+                        <span>{{commentForm.value.author}} {{commentForm.value.date| date}}</span>
+                      </p>
+                      
+                  
+                      <form novalidate [formGroup]="commentForm" #rform="ngForm" (ngSubmit)="onSubmit()">
                         <p>
                             <mat-form-field >
                                 <input matInput formControlName="author" placeholder="Name" type="text" required>
                                 <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                                  </mat-form-field>
                             </p>
-                            <mat-slider min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
+                            <mat-slider formControlName="rating"  min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
                             
                             <p>
                               <mat-form-field >
@@ -81,9 +87,9 @@
                         
                         
                         
-                        <button type="submit" mat-button class="background-primary text-floral-white" >Submit</button>
+                        <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
                       </form>
-                    </div>
+                    
                  
         </div>
        
@@ -91,5 +97,8 @@
 
 </div>
 
+
+
+  
 
 

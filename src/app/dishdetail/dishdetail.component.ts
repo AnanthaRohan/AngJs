@@ -5,7 +5,7 @@ import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Review } from '../shared/review';
+
 import { Comment } from '../shared/comment';
 
 
@@ -23,8 +23,8 @@ export class DishdetailComponent implements OnInit {
     next: string;
     @ViewChild('rform') reviewFormDirective;
 
-    reviewForm: FormGroup;
-    review: Review;
+    commentForm: FormGroup;
+    
     comment: Comment;
     
     
@@ -65,19 +65,20 @@ export class DishdetailComponent implements OnInit {
   }
 
   createForm() {
-    this.reviewForm = this.fb.group({
+    this.commentForm = this.fb.group({
       author: ['', Validators.required ],
-      comment : ''
+      comment : ['', Validators.required ],
+      rating : ''
     });
-    this.reviewForm.valueChanges
+    this.commentForm.valueChanges
   .subscribe(data => this.onValueChanged(data));
 
 this.onValueChanged(); // (re)set validation messages now
   }
 
   onValueChanged(data?: any) {
-    if (!this.reviewForm) { return; }
-    const form = this.reviewForm;
+    if (!this.commentForm) { return; }
+    const form = this.commentForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message (if any)
@@ -93,12 +94,16 @@ this.onValueChanged(); // (re)set validation messages now
         }
       }
     }
+    this.comment=form.value;
   }
 
   onSubmit() {
-    this.review = this.reviewForm.value;
-    console.log(this.review);
-    this.reviewForm = this.fb.group({
+
+    this.comment = this.commentForm.value;
+    this.comment.date=new Date().toISOString();
+    this.dish.comments.push(this.comment);
+    console.log(this.comment);
+    this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
       comment: ['', [Validators.required, Validators.minLength(2)] ],
      });
@@ -119,3 +124,26 @@ this.onValueChanged(); // (re)set validation messages now
 }
 }
 
+
+
+
+/*onValueChanged(data?:any){
+  if (!this.commentForm){
+    return ;
+  }
+  const form=this.commentForm;
+  for (const field in this.formErrors){
+      //clear previois messages if any
+      this.formErrors[field]='';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid){
+        const messages = this.validationMessages[field];
+        for (const key in control.errors){
+            this.formErrors[field]+=messages[key]+' ';
+          }
+        
+  
+    }
+  }
+  this.comment=form.value;
+}*/

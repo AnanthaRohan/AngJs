@@ -1,4 +1,6 @@
+import { Comment } from './comment';
+
 export class Review {
-    name : string;
-    comment : string;
+    comments: Comment[];
+    
 }
