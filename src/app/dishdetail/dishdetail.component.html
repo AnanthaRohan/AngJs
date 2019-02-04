@@ -63,12 +63,12 @@
                   
                 
               <div>
-                  
-                     <p>
+                 
+                     <p [hidden]="!commentForm.valid">
                         <span> {{commentForm.value.comment}}</span>
                         <br>
-                        <span>{{commentForm.value.rating}}</span><br>
-                        <span>{{commentForm.value.author}} {{commentForm.value.date| date}}</span>
+                        <span>{{commentForm.value.rating}} Stars</span><br>
+                        <span>--{{commentForm.value.author}} {{commentForm.value.date| date}}</span>
                       </p>
                       
                   
@@ -79,7 +79,7 @@
                                 <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                                  </mat-form-field>
                             </p>
-                            <mat-slider formControlName="rating"  min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
+                            <mat-slider formControlName="rating"  min="0" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
                             
                             <p>
                               <mat-form-field >
