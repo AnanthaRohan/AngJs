@@ -18,11 +18,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MenuComponent } from './menu/menu.component';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { HttpModule } from '@angular/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -31,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatSliderModule} from '@angular/material/slider';
+import { baseURL } from './shared/baseurl';
 
 
 import { DishService } from './services/dish.service';
@@ -59,6 +62,8 @@ import { LeaderService } from './services/leader.service';
     MatListModule,
     MatGridListModule,
     MatCardModule,
+    HttpModule,
+    HttpClientModule,
     MatButtonModule,
     AppRoutingModule,
     MatFormFieldModule, 
@@ -76,7 +81,8 @@ import { LeaderService } from './services/leader.service';
     LoginComponent
 ],
 
-  providers: [DishService,PromotionService,LeaderService],
+  providers: [DishService,PromotionService,LeaderService,
+    {provide: 'BaseURL', useValue: baseURL}],
 
   bootstrap: [AppComponent]
 })
